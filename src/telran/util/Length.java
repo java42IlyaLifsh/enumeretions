@@ -1,4 +1,5 @@
 package telran.util;
+//HW_22 IlyaL
 
 public class Length implements Comparable<Length> {
 	float amount;
