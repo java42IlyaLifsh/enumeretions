@@ -2,22 +2,45 @@ package telran.util;
 //HW_22 IlyaL
 
 public class Length implements Comparable<Length> {
-	float amount;
-	LengthUnit unit;
+	public float amount;
+	public LengthUnit unit;
+	private final static float delta = 0.001f;
+
+	public Length(float amount, LengthUnit unit) {
+		this.amount = amount;
+		this.unit = unit;
+	}
+	
 	@Override
 	/**
 	 * equals two Length objects according to LengthUnit
 	 * 10m == 10000mm
 	 */
 	public boolean equals(Object obj) {
-		//TODO
-		return false;
+	
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (this.getClass() != obj.getClass()) return false;
+		Length other = (Length) obj;
+		if(other.unit != unit) {
+			other = other.convert(unit);
+		}
+		return Math.abs(this.amount-other.amount)<delta;
+	
 	}
 
 	@Override
-	public int compareTo(Length o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Length len) {
+		
+		Length obj = len;
+		if(unit!=len.unit) {
+			obj = obj.convert(unit);
+		}
+		if(Math.abs(amount-obj.amount)<delta) {
+			return 0;
+		}
+		return Float.compare(amount, obj.amount);
+
 	}
 	/**
 	 * 
@@ -25,9 +48,11 @@ public class Length implements Comparable<Length> {
 	 * @return new Length object with a given LengthUnit
 	 * convert(LengthUnit.M) returns Length in meters 
 	 */
-	public Length convert(LengthUnit unit) {
-		//TODO
-		return null;
+	public Length convert(LengthUnit otherUnit) {
+	
+		float factor = (this.unit).getValue()/otherUnit.getValue();
+		return new Length(amount*factor, otherUnit);
+		
 	}
 	@Override
 	/**
@@ -35,9 +60,11 @@ public class Length implements Comparable<Length> {
 	 * Example: 20M (string expression of Length object designed 20 meters)
 	 */
 	public String toString() {
-		//TODO
-		return "";
+	
+		return String.format("%.4f", this.amount) + this.unit.toString();
+
 	}
+	
 	
 	
 
