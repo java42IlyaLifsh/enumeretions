@@ -50,6 +50,7 @@ public class Length implements Comparable<Length> {
 	 */
 	public Length convert(LengthUnit otherUnit) {
 	
+		// V.R.  'this' is redundant here
 		float factor = (this.unit).getValue()/otherUnit.getValue();
 		return new Length(amount*factor, otherUnit);
 		
@@ -60,9 +61,9 @@ public class Length implements Comparable<Length> {
 	 * Example: 20M (string expression of Length object designed 20 meters)
 	 */
 	public String toString() {
-	
+		// V.R.  'this' is redundant here
 		return String.format("%.4f", this.amount) + this.unit.toString();
-
+		// V.R. By the way. delta is defined as 0.001f. May be the format has to be "%.3f"?
 	}
 	
 	

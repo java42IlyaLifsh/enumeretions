@@ -39,7 +39,10 @@ class LengthTests {
 
 	@Test
 	void testToString() {
+		// V.R. If to change ',' to '.' then it will work
+		// V.R. I mean "3.0000FT" instead of "3,0000FT"
 		assertEquals("3,0000FT", new Length(3f, LengthUnit.FT).toString());	
+		// V.R. I mean "1.1000M" instead of "1,1000M"
 		assertEquals("1,1000M", new Length(1.1f, LengthUnit.M).toString());	
 	}
 	@Test
